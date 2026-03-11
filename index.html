@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon Bot - Ultimate Official Wiki</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Quicksand:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* ==================================================
+           TEMA SKY BLUE DRAGON (GLASSMORPHISM)
+           ================================================== */
+        :root {
+            --sky-light: #e0f2fe;
+            --sky-main: #38bdf8;
+            --sky-dark: #0284c7;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --white-glass: rgba(255, 255, 255, 0.85);
+            --white-glass-hover: rgba(255, 255, 255, 0.95);
+            --shadow-soft: 0 8px 32px rgba(56, 189, 248, 0.15);
+            --shadow-hover: 0 12px 40px rgba(2, 132, 199, 0.25);
+            --border-glass: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: var(--text-main);
+            background: linear-gradient(-45deg, #e0f2fe, #bae6fd, #f0f9ff, #cffafe);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+        }
+
+        h1, h2, h3, h4, h5, .font-heading { font-family: 'Quicksand', sans-serif; }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #7dd3fc; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--sky-main); }
+
+        .app-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 280px;
+            background: var(--white-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-right: var(--border-glass);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: var(--border-glass);
+        }
+
+        .logo-box {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--sky-main), var(--sky-dark));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
+        }
+
+        .sidebar-title { font-size: 20px; font-weight: 800; color: var(--sky-dark); line-height: 1.2; }
+        .sidebar-subtitle { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+        .nav-menu {
+            flex: 1;
+            padding: 20px 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 14px 18px;
+            border: none;
+            background: transparent;
+            border-radius: 14px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+
+        .nav-btn i { font-size: 20px; color: var(--sky-main); transition: all 0.2s ease; }
+        .nav-btn:hover { background: rgba(255, 255, 255, 0.5); color: var(--sky-dark); }
+        .nav-btn.active {
+            background: linear-gradient(135deg, var(--sky-main), var(--sky-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
+        }
+        .nav-btn.active i { color: white; }
+
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .topbar {
+            height: 80px;
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255,255,255,0.4);
+            backdrop-filter: blur(10px);
+            border-bottom: var(--border-glass);
+            z-index: 50;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: white;
+            border: none;
+            font-size: 24px;
+            color: var(--sky-dark);
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .search-box { position: relative; width: 100%; max-width: 500px; }
+        .search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 18px; }
+        .search-input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border: 2px solid white;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 30px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        .search-input:focus { background: white; border-color: var(--sky-main); box-shadow: 0 4px 20px rgba(56, 189, 248, 0.15); }
+
+        /* CONTENT PAGES */
+        .page-wrapper { flex: 1; padding: 40px; overflow-y: auto; position: relative; }
+        .tab-content { display: none; max-width: 1000px; margin: 0 auto; animation: slideUpFade 0.4s ease forwards; padding-bottom: 60px; }
+        .tab-content.active { display: block; }
+
+        @keyframes slideUpFade {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-header { display: flex; align-items: center; gap: 20px; margin-bottom: 40px; }
+        .page-icon {
+            width: 65px; height: 65px;
+            background: white; border-radius: 20px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 32px; color: var(--sky-main);
+            box-shadow: var(--shadow-soft); border: var(--border-glass);
+        }
+        .page-title { font-size: 38px; color: var(--text-main); line-height: 1.1; font-weight: 800; }
+        .page-desc { font-size: 16px; color: var(--text-muted); margin-top: 5px; font-weight: 600; }
+
+        /* COMMAND CARDS */
+        .cmd-card {
+            background: var(--white-glass);
+            backdrop-filter: blur(10px);
+            border: var(--border-glass);
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cmd-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 5px; height: 100%;
+            background: linear-gradient(to bottom, var(--sky-main), #bae6fd);
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+
+        .cmd-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); background: var(--white-glass-hover); }
+        .cmd-card:hover::before { opacity: 1; }
+
+        .cmd-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+        
+        .cmd-name {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--sky-dark);
+            padding: 8px 18px;
+            border-radius: 12px;
+            font-family: monospace;
+            font-size: 18px;
+            font-weight: 800;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .btn-copy {
+            background: white; border: 1px solid var(--sky-light); color: var(--text-muted);
+            padding: 8px 16px; border-radius: 10px; font-family: 'Quicksand', sans-serif;
+            font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;
+            transition: all 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .btn-copy:hover { background: var(--sky-main); color: white; border-color: var(--sky-main); }
+        .btn-copy.success { background: #10b981; color: white; border-color: #10b981; }
+
+        .cmd-desc { font-size: 15px; color: var(--text-main); line-height: 1.7; margin-bottom: 25px; font-weight: 600; }
+
+        .cmd-usage-box {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+            background: rgba(255, 255, 255, 0.5); padding: 20px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .usage-section h5 { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--sky-dark); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; font-weight: 800; }
+        .usage-section.example h5 { color: #f59e0b; }
+
+        .usage-code {
+            display: block; background: white; padding: 12px 15px; border-radius: 10px; font-family: monospace;
+            font-size: 14px; font-weight: 700; color: var(--text-main); border: 1px solid var(--sky-light); box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .mobile-toggle { display: block; }
+            .sidebar { position: fixed; left: -280px; height: 100%; box-shadow: 20px 0 50px rgba(0,0,0,0.1); }
+            .sidebar.show { transform: translateX(280px); }
+            .page-wrapper { padding: 20px; }
+            .cmd-usage-box { grid-template-columns: 1fr; gap: 15px; }
+            .search-box { display: none; }
+        }
+        
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.3); backdrop-filter: blur(4px);
+            z-index: 90; display: none; opacity: 0; transition: opacity 0.3s ease;
+        }
+        .overlay.show { display: block; opacity: 1; }
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <div class="app-container">
+        
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-box"><i class="ph-bold ph-lightning"></i></div>
+                <div>
+                    <div class="sidebar-title">Dragon Wiki</div>
+                    <div class="sidebar-subtitle">Ultimate Edition 100%</div>
+                </div>
+            </div>
+
+            <div class="nav-menu">
+                <button class="nav-btn active" onclick="switchTab('systems', this)"><i class="ph-fill ph-info"></i> Sistem Inti Game</button>
+                <button class="nav-btn" onclick="switchTab('economy', this)"><i class="ph-fill ph-coins"></i> Ekonomi & Bank</button>
+                <button class="nav-btn" onclick="switchTab('explore', this)"><i class="ph-fill ph-map-trifold"></i> Eksplorasi & Pet</button>
+                <button class="nav-btn" onclick="switchTab('afk', this)"><i class="ph-fill ph-robot"></i> Logistik & AFK</button>
+                <button class="nav-btn" onclick="switchTab('market', this)"><i class="ph-fill ph-storefront"></i> Pasar Global</button>
+                <button class="nav-btn" onclick="switchTab('clan', this)"><i class="ph-fill ph-users-three"></i> Dragon Syndicate</button>
+                <button class="nav-btn" onclick="switchTab('arena', this)"><i class="ph-fill ph-swords"></i> Arena & Battle</button>
+                <button class="nav-btn" onclick="switchTab('casino', this)"><i class="ph-fill ph-poker-chip"></i> Kasino (No Tax)</button>
+                <button class="nav-btn" onclick="switchTab('events', this)"><i class="ph-fill ph-gift"></i> Event & Hadiah</button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            
+            <!-- TOPBAR -->
+            <header class="topbar">
+                <button class="mobile-toggle" onclick="toggleSidebar()"><i class="ph-bold ph-list"></i></button>
+                <div class="search-box">
+                    <i class="ph-bold ph-magnifying-glass"></i>
+                    <input type="text" id="searchInput" class="search-input" placeholder="Cari perintah... (misal: /hunt atau Limit)" onkeyup="filterCards()">
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 800; display: flex; align-items: center; gap: 6px; border: 1px solid rgba(16, 185, 129, 0.2);">
+                        <div style="width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 6px #10b981;"></div> Online
+                    </span>
+                </div>
+            </header>
+
+            <!-- SCROLLABLE PAGE AREA -->
+            <div class="page-wrapper">
+
+                <!-- ==============================================
+                     TAB 1: SISTEM INTI GAME
+                     ============================================== -->
+                <div id="systems" class="tab-content active">
+                    <div class="page-header">
+                        <div class="page-icon"><i class="ph-fill ph-info"></i></div>
+                        <div><h2 class="page-title font-heading">Sistem Inti Game</h2><p class="page-desc">Pelajari mekanisme, algoritma, dan rahasia dunia Dragon Bot.</p></div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <h3 class="font-heading" style="font-size: 22px; color: var(--sky-dark); margin-bottom: 15px; display: flex; align-items: center; gap: 8px;"><i class="ph-fill ph-chart-line-up"></i> Limit Transfer Eksponensial</h3>
+                        <p class="cmd-desc">Sistem pembatasan sirkulasi uang untuk mencegah inflasi parah. Kapasitas pengiriman dan penerimaan harianmu sangat bergantung pada seberapa tinggi Level-mu.
+                        <br><br><b>Rumus Perhitungan:</b>
+                        <br>• Level 1 (Newbie): Memiliki jatah flat sebesar <b>$64,000</b>.
+                        <br>• Jatah Kirim (Level > 1): <code>Level² × 51.900</code>
+                        <br>• Jatah Terima (Level > 1): <code>Level² × 77.850</code>
+                        <br><br><b>Contoh:</b> Jika kamu Level 10, kamu bisa mengirim uang hingga <i>$5,190,000</i> dan menerima hingga <i>$7,785,000</i> per hari. Semua limit di-reset pukul 00:00 WIB.</p>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <h3 class="font-heading" style="font-size: 22px; color: #f59e0b; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;"><i class="ph-fill ph-sparkle"></i> Mekanisme Gacha & RNG (Luck)</h3>
+                        <p class="cmd-desc">Dunia Dragon Bot menggunakan sistem RNG (Random Number Generator) dinamis. Setiap kali kamu melakukan perintah <code>/hunt</code> atau <code>/fish</code>, peluang mendapatkan hewan SECRET atau MYTHIC dipengaruhi oleh stat <b>Luck</b>.
+                        <br><br><b>Cara Mendapatkan Luck:</b>
+                        <br>• Leveling: Tiap naik level, Luck permanen bertambah.
+                        <br>• Sacrifice: Mengorbankan 2 hewan Secret untuk gacha Luck Permanen.
+                        <br>• Cuaca: Berburu saat Badai/Hujan memberikan buff ekstra Luck.
+                        <br><br><b>Penalti AFK:</b> Jika kamu malas dan menggunakan mesin <code>/afk</code>, Luck kamu akan dikurangi 30% selama mesin berjalan.</p>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <h3 class="font-heading" style="font-size: 22px; color: #ef4444; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;"><i class="ph-fill ph-sword"></i> Mekanisme Clan War (Perang Klan)</h3>
+                        <p class="cmd-desc">Perang klan bukanlah duel satu lawan satu. Saat deklarasi <code>/klan serang</code>, sistem akan mengakumulasi <b>Total Power</b> dari sebuah klan.
+                        <br><br>Total Power = Penjumlahan seluruh stat (HP + ATK + SPD) dari <b>semua hewan</b> yang dimiliki oleh <b>seluruh anggota</b> klan tersebut.
+                        <br><br><b>Skenario:</b>
+                        <br>• Menang: Merampok uang dari Kas Klan musuh (Persentase) & Klanmu dapat EXP masif.
+                        <br>• Kalah: Klan penyerang gagal dan harus membayar Denda Ganti Rugi dari kas mereka ke kas musuh. Klan yang diserang akan mendapat masa "Shield" perlindungan.</p>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <h3 class="font-heading" style="font-size: 22px; color: #3b82f6; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;"><i class="ph-fill ph-waves"></i> World Boss: The Megalodon</h3>
+                        <p class="cmd-desc">Event dunia instan yang sangat kompetitif. Secara acak, sistem akan memberikan notifikasi bahwa World Boss (Megalodon) telah muncul di lokasi spesifik.
+                        <br><br><b>Sistem Boss:</b> Boss ini tidak memiliki bar HP. Ini murni balapan kecepatan. Semua player harus pindah lokasi ke tempat boss berada dan melakukan <i>spam</i> command <code>/fish</code>. Pemain pertama yang RNG-nya beruntung mengenai "Hit" akan langsung membunuh Boss tersebut, mendapatkan drop hewannya, dan event seketika ditutup untuk seluruh server.</p>
+                    </div>
+                </div>
+
+                <!-- ==============================================
+                     TAB 2: EKONOMI & BANK
+                     ============================================== -->
+                <div id="economy" class="tab-content">
+                    <div class="page-header">
+                        <div class="page-icon"><i class="ph-fill ph-coins"></i></div>
+                        <div><h2 class="page-title font-heading">Ekonomi & Bank</h2><p class="page-desc">Kelola tabunganmu dan bertransaksi secara aman.</p></div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/bal</div>
+                            <button class="btn-copy" onclick="copyText('/bal @user', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Mengecek saldo dompet tunai (Balance) dan uang yang disimpan di bank. Bisa juga digunakan untuk mengintip dompet orang lain.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/bal [user/opsional]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/bal @user</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/dep & /wd</div>
+                            <button class="btn-copy" onclick="copyText('/dep all', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Manajemen Brankas. <code>/dep</code> untuk menabung agar uang tidak bisa dirampok (rob). <code>/wd</code> untuk menarik tabungan jika butuh modal berburu atau ke pasar.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/dep [jumlah/all]<br>/wd [jumlah/all]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/dep 50000<br>/wd all</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/pay</div>
+                            <button class="btn-copy" onclick="copyText('/pay member:@user amount:150000', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Mentransfer uang ke player lain. Fitur ini aman karena akan memunculkan menu Tombol Konfirmasi (Terima/Batal) untuk mencegah salah ketik nol (typo). Tunduk pada Limit Level.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/pay [member] [jumlah]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/pay member:@user amount:150000</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/ceklimit</div>
+                            <button class="btn-copy" onclick="copyText('/ceklimit', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Fitur wajib sebelum bertransaksi. Menampilkan statistik: Kuota Maksimal, Kuota Terpakai, dan Kuota Sisa (Baik untuk pengiriman maupun penerimaan dana).</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/ceklimit [member/opsional]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/ceklimit @user</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/daily & /weekly</div>
+                            <button class="btn-copy" onclick="copyText('/daily', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Mengambil gaji tunjangan. <code>/daily</code> punya sistem *Streak* beruntun harian yang bikin hadiah makin besar tiap harinya. <code>/weekly</code> cair tiap seminggu sekali dengan nominal jumbo.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/daily<br>/weekly</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/daily</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/rank & /leaderboard</div>
+                            <button class="btn-copy" onclick="copyText('/leaderboard kategori:level', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc"><code>/rank</code> untuk melihat posisi personalmu di seluruh kategori dunia. <code>/leaderboard</code> untuk melihat daftar Top 100 penguasa di kategori Kekayaan, Level, Hunt, Fish, Kolektor, atau Klan.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/rank<br>/leaderboard [kategori]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/leaderboard kategori:level</code></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==============================================
+                     TAB 3: EKSPLORASI & PET
+                     ============================================== -->
+                <div id="explore" class="tab-content">
+                    <div class="page-header">
+                        <div class="page-icon"><i class="ph-fill ph-map-trifold"></i></div>
+                        <div><h2 class="page-title font-heading">Eksplorasi & Pet</h2><p class="page-desc">Lengkapi Pokedex-mu dan koleksi seluruh monster mitologi.</p></div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/index & /travel</div>
+                            <button class="btn-copy" onclick="copyText('/travel tujuan:Volcano', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Buka buku Atlas dengan <code>/index</code> untuk melihat daftar pulau dan monster yang berdiam di sana. Gunakan <code>/travel</code> ($5,000) untuk berpindah ke habitat tersebut agar bisa menangkap monster spesifiknya.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/index<br>/travel [lokasi]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/travel tujuan:Volcano</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/hunt & /fish</div>
+                            <button class="btn-copy" onclick="copyText('/hunt', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Command gacha utama! <code>/hunt</code> untuk hewan darat, <code>/fish</code> untuk hewan air. Mengkonsumsi $5 per command dan memberikanmu +15 XP.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/hunt<br>/fish</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/hunt</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/zoo & /aquarium</div>
+                            <button class="btn-copy" onclick="copyText('/zoo @user', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Menampilkan isi inventory peliharaanmu (atau player lain). <code>/zoo</code> untuk mahluk terestrial (darat), <code>/aquarium</code> untuk mahluk laut.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/zoo [user]<br>/aquarium [user]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/zoo @user</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/dex (Pokedex)</div>
+                            <button class="btn-copy" onclick="copyText('/dex hewan:kraken', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Ensiklopedi monster. Memunculkan data lengkap seekor hewan: Statistik Tempur (HP/ATK/SPD), habitat asal, persentase Drop Rate (Rarity), dan gambar visualnya.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/dex [nama_hewan]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/dex hewan:kraken</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/pajang & /favorite</div>
+                            <button class="btn-copy" onclick="copyText('/favorite hewan:naga', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Gunakan <code>/pajang</code> untuk menjadikan monster sebagai Avatar/Maskot di kartu profilmu. Gunakan <code>/favorite</code> untuk MENGUNCI (⭐) hewan kesayangan agar kebal dari pencucian gudang <code>/sell_all</code>.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/pajang [hewan]<br>/favorite [hewan]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/favorite hewan:naga</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/sacrifice</div>
+                            <button class="btn-copy" onclick="copyText('/sacrifice hewan_secret:kraken', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Ritual Tumbal. Bakar 2 ekor monster tier SECRET yang kamu miliki. Ada resiko gagal 50%. Jika sukses, kamu dianugerahi tambahan +0.1% LUCK yang bersifat PERMANEN.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/sacrifice [hewan_secret]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/sacrifice hewan_secret:kraken</code></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==============================================
+                     TAB 4: LOGISTIK & AFK
+                     ============================================== -->
+                <div id="afk" class="tab-content">
+                    <div class="page-header">
+                        <div class="page-icon"><i class="ph-fill ph-robot"></i></div>
+                        <div><h2 class="page-title font-heading">Logistik & AFK</h2><p class="page-desc">Manajemen bot auto-farming dan kapasitas penyimpanan.</p></div>
+                    </div>
+                    
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/afk</div>
+                            <button class="btn-copy" onclick="copyText('/afk mode:hunt paket:1 hari lokasi:Forest', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Menyalakan mesin gacha otomatis. Sangat berguna jika kamu mau tidur atau sedang sibuk. Kamu harus bayar uang operasional di awal sesuai durasi paket.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/afk [mode] [paket] [lokasi]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/afk mode:hunt paket:1 hari lokasi:Forest</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/cekafk & /stopafk</div>
+                            <button class="btn-copy" onclick="copyText('/cekafk', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc"><code>/cekafk</code> untuk melihat laporan tangkapan mesin tanpa mematikannya (Laporan akan otomatis bersih setelah dibaca). <code>/stopafk</code> untuk mematikan mesin paksa sebelum waktunya habis.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/cekafk<br>/stopafk</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/cekafk</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/bag_afk & /empty_bag</div>
+                            <button class="btn-copy" onclick="copyText('/empty_bag', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Mesin AFK menyimpan hewan di "Tas" sementara. Jika tas kapasitasnya penuh (misal 100/100), mesin <b>MOGOK KERJA</b>. Gunakan <code>/bag_afk</code> untuk cek kapasitas, dan <code>/empty_bag</code> untuk menyewa kurir ($2,500) agar mengosongkan tas mesin ke inventory utamamu.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/bag_afk<br>/empty_bag</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/empty_bag</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/upgrade_bag</div>
+                            <button class="btn-copy" onclick="copyText('/upgrade_bag jumlah:100', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Membeli tambahan slot tas untuk mesin AFK agar bisa ditinggal berhari-hari tanpa takut kepenuhan. Biaya 1 Slot = $1,000. Maksimal kapasitas tas yang bisa dibeli adalah 5,000 slot.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/upgrade_bag [jumlah_slot]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/upgrade_bag jumlah:100</code></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==============================================
+                     TAB 5: PASAR GLOBAL
+                     ============================================== -->
+                <div id="market" class="tab-content">
+                    <div class="page-header">
+                        <div class="page-icon"><i class="ph-fill ph-storefront"></i></div>
+                        <div><h2 class="page-title font-heading">Pasar Global</h2><p class="page-desc">Pusat perdagangan antar pemain dan NPC gelap.</p></div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/market sell & list</div>
+                            <button class="btn-copy" onclick="copyText('/market sell hewan:naga price:50000', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc"><code>/market list</code> untuk melihat semua barang dagangan player di seluruh server. <code>/market sell</code> untuk memajang hewanmu ke dalam list tersebut (Menghasilkan ID unik untuk dibeli orang).</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/market list<br>/market sell [hewan] [harga]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/market sell hewan:naga price:50000</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/market buy & cancel</div>
+                            <button class="btn-copy" onclick="copyText('/market buy item_id:48921', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc"><code>/market buy</code> untuk menawar/membeli barang berdasarkan ID yang tertera di pasar. Si penjual harus ACC (Terima) notifikasinya terlebih dahulu. <code>/market cancel</code> untuk menarik kembali barang jualanmu dari pasar.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/market buy [id_barang]<br>/market cancel [id_barang]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/market buy item_id:48921</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/bm_list & /bm_buy</div>
+                            <button class="btn-copy" onclick="copyText('/bm_buy slot_id:2', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Pasar Gelap (Black Market). Toko ini dijaga NPC dan menjual 3 slot hewan eksklusif dengan harga tetap. Barang akan di-*refresh* otomatis setiap jam 12:00 dan 00:00.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/bm_list<br>/bm_buy [slot_1/2/3]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/bm_buy slot_id:2</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/sell_all</div>
+                            <button class="btn-copy" onclick="copyText('/sell_all', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Fitur Cuci Gudang. Merubah seluruh peliharaanmu menjadi uang tunai seketika! <br><br><b>PINTAR:</b> Sistem otomatis melindungi (TIDAK AKAN MENJUAL) hewan tier SECRET dan hewan yang sudah kamu amankan lewat perintah <code>/favorite</code>.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/sell_all</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/sell_all</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/send_animal</div>
+                            <button class="btn-copy" onclick="copyText('/send_animal user:@teman jumlah:2 hewan:anjing', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Mengirim hewan langsung ke inventory temanmu sebagai hadiah tanpa memungut pajak atau biaya apa pun.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/send_animal [user] [jumlah] [hewan]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/send_animal user:@teman jumlah:2 hewan:anjing</code></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==============================================
+                     TAB 6: CLAN
+                     ============================================== -->
+                <div id="clan" class="tab-content">
+                    <div class="page-header">
+                        <div class="page-icon"><i class="ph-fill ph-users-three"></i></div>
+                        <div><h2 class="page-title font-heading">Dragon Syndicate</h2><p class="page-desc">Bangun aliansimu, tingkatkan markas, dan hancurkan musuh.</p></div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/klan create, apply & invite</div>
+                            <button class="btn-copy" onclick="copyText('/klan create nama:Darkness tag:DARK', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Pondasi grup. <code>create</code> membutuhkan $300,000 untuk membangun klan baru. <code>apply</code> melamar jadi anggota. <code>invite</code> (Khusus Leader) mengundang member via DM.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/klan create [nama] [tag]<br>/klan apply [id_klan]<br>/klan invite [user]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/klan create nama:Darkness tag:DARK</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/klan info, donasi & deposit</div>
+                            <button class="btn-copy" onclick="copyText('/klan donasi hewan:naga jumlah:2', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc"><code>info</code> mengecek statistik grup. <code>donasi</code> menyumbangkan hewan untuk menambah EXP klan (Level naik = limit anggota naik). <code>deposit</code> menyumbang uang pribadi untuk markas.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/klan donasi [hewan] [jumlah]<br>/klan deposit [jumlah]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/klan donasi hewan:naga jumlah:2</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/klan serang (CLAN WAR)</div>
+                            <button class="btn-copy" onclick="copyText('/klan serang target_klan_id:klan_123', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Deklarasi Perang! Mengadu akumulasi kekuatan HP+ATK+SPD seluruh anggota. Jika menang, merampas Kas musuh. Jika kalah, uang Kas klanmu akan disita dan diberikan ke musuh sebagai kompensasi denda.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/klan serang [id_klan_musuh]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/klan serang target_klan_id:klan_123</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/klan (Perintah Leader & Admin)</div>
+                            <button class="btn-copy" onclick="copyText('/klan tambah_slot jumlah:5', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Kumpulan akses khusus ketua:
+                        <br>• <code>/klan rename [nama_baru]</code> - Ubah nama ($50k).
+                        <br>• <code>/klan setcolor [hex]</code> - Ubah warna profil.
+                        <br>• <code>/klan tambah_slot [jumlah]</code> - Beli ekstra bangku member ($150k per slot).
+                        <br>• <code>/klan promote</code> | <code>/klan kick</code> | <code>/klan transfer_leader</code> | <code>/klan tarik</code>.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/klan [sub_command] [argumen]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/klan tambah_slot jumlah:5</code></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==============================================
+                     TAB 7: ARENA
+                     ============================================== -->
+                <div id="arena" class="tab-content">
+                    <div class="page-header">
+                        <div class="page-icon"><i class="ph-fill ph-swords"></i></div>
+                        <div><h2 class="page-title font-heading">Arena & Battle</h2><p class="page-desc">Tunjukkan siapa petarung hewan terkuat di server.</p></div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/battle (PvE & PvP)</div>
+                            <button class="btn-copy" onclick="copyText('/battle @user', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Gunakan tanpa target (<code>/battle</code>) untuk melawan monster AI bot. Gunakan dengan target (<code>/battle @user</code>) untuk duel pemain sungguhan. Masing-masing memilih 1 hewan rahasia; yang punya akumulasi stat lebih tinggi menang dan dapat XP.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/battle [opsional: user]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/battle @user</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/bounty set & list</div>
+                            <button class="btn-copy" onclick="copyText('/bounty set target:@user amount:150000', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Sistem Buronan! Kesal dengan player lain? Gunakan <code>/bounty set</code> untuk menaruh uang hadiah di kepalanya. Jika player tersebut berduel (PvP) dan kalah, pemenangnya akan mencairkan uang buronanmu.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/bounty set [target] [jumlah]<br>/bounty list</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/bounty set target:@user amount:150000</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/rob</div>
+                            <button class="btn-copy" onclick="copyText('/rob target:@user jumlah:10000', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Mencuri uang dari dompet pemain lain. Kesempatan berhasil hanya 35%. <br><br><b>BAHAYA:</b> Jika gagal, kamu ditangkap dan didenda <b>3 KALI LIPAT</b> dari jumlah yang kamu coba curi, lalu denda itu masuk ke kantong korban.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/rob [target] [jumlah]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/rob target:@user jumlah:10000</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/misi</div>
+                            <button class="btn-copy" onclick="copyText('/misi', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Papan guild quest. Menampilkan 3 misi harian acak (misal: "Menang Battle 3x", "Berhasil Hunt 5x"). Selesaikan syaratnya dan klaim hadiah uang besar!</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/misi</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/misi</code></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==============================================
+                     TAB 8: CASINO
+                     ============================================== -->
+                <div id="casino" class="tab-content">
+                    <div class="page-header">
+                        <div class="page-icon"><i class="ph-fill ph-poker-chip"></i></div>
+                        <div><h2 class="page-title font-heading">Kasino (No Tax)</h2><p class="page-desc">Area bebas pajak potongan. Keuntungan 100% murni milikmu!</p></div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/cf (Coinflip)</div>
+                            <button class="btn-copy" onclick="copyText('/cf choice:h amount:10000', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Tebak koin jatuh! Pilih (H) untuk Heads / Kepala, atau (T) untuk Tails / Ekor. Jika menang, kamu akan membawa pulang modalmu dan profit murni 1x lipat tanpa dipotong pajak brankas server.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/cf [h/t] [jumlah/all]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/cf choice:h amount:10000</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/slots</div>
+                            <button class="btn-copy" onclick="copyText('/slots amount:all', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Putar mesin slot. Jika kamu berhasil mendapatkan tiga emoji buah yang sama (sejajar), kamu akan mendapat JACKPOT! Hadiah adalah 2x lipat total uang taruhanmu (Bersih tanpa potongan).</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/slots [jumlah/all]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/slots amount:all</code></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==============================================
+                     TAB 9: EVENTS
+                     ============================================== -->
+                <div id="events" class="tab-content">
+                    <div class="page-header">
+                        <div class="page-icon"><i class="ph-fill ph-gift"></i></div>
+                        <div><h2 class="page-title font-heading">Event & Hadiah</h2><p class="page-desc">Jangan lewatkan hujan duit dan kolaborasi epik.</p></div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/cek_cuaca & /cekevent</div>
+                            <button class="btn-copy" onclick="copyText('/cek_cuaca', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc"><code>/cek_cuaca</code> melihat status iklim dunia saat ini, sangat berguna karena cuaca ekstrim meningkatkan gacha luck secara otomatis. <code>/cekevent</code> untuk mengecek apakah ada event *Double Drop* atau *Rate Up* buatan Admin.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/cek_cuaca<br>/cekevent</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/cek_cuaca</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/collab list & claim</div>
+                            <button class="btn-copy" onclick="copyText('/collab claim animal:naga_es password:rahasia', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Dapatkan monster ultra-rare dari Event Silang Server. Cek daftarnya dengan <code>/collab list</code>. Jika kamu tahu password dari server kolaborasi, kamu bisa mengambil hewan unik mereka dengan <code>/collab claim</code>.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/collab list<br>/collab claim [hewan] [pass]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/collab claim animal:naga_es password:rahasia</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/redeem_code & /ambil_amplop</div>
+                            <button class="btn-copy" onclick="copyText('/redeem_code code:DRAGON2024', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Gunakan <code>/redeem_code</code> jika kamu menemukan Kode Voucher dari Sosmed developer untuk ditukar dengan uang/hewan. Jika admin menjatuhkan "Amplop Kaget" di chat, segera gunakan <code>/ambil_amplop</code> untuk berebut isinya!</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/redeem_code [kode]<br>/ambil_amplop</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/redeem_code code:DRAGON2024</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/vote & /claim_vote</div>
+                            <button class="btn-copy" onclick="copyText('/claim_vote', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Bantu Dragon Bot merajai server Discord! Gunakan <code>/vote</code> untuk mendapat link dukungan Top.gg. Setelah selesai vote, ketik <code>/claim_vote</code> untuk menyuntikkan ribuan Dragon Cash langsung ke dompetmu (Bisa dilakukan per 12 Jam).</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/vote<br>/claim_vote</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/claim_vote</code></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- MAIN JAVASCRIPT -->
+    <script>
+        // INIT ICONS
+        lucide.createIcons();
+
+        // TAB SWITCH LOGIC
+        function switchTab(tabId, element) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+
+            const navBtns = document.querySelectorAll('.nav-btn');
+            navBtns.forEach(btn => btn.classList.remove('active'));
+
+            if(element) element.classList.add('active');
+
+            document.getElementById('searchInput').value = '';
+            filterCards();
+
+            if (window.innerWidth <= 992) toggleSidebar();
+        }
+
+        // SIDEBAR TOGGLE (MOBILE)
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('show');
+            overlay.classList.toggle('show');
+        }
+
+        // COPY TO CLIPBOARD
+        function copyText(text, btnElement) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btnElement.innerHTML;
+                btnElement.classList.add('success');
+                btnElement.innerHTML = `<i class="ph-bold ph-check"></i> Tersalin`;
+
+                setTimeout(() => {
+                    btnElement.classList.remove('success');
+                    btnElement.innerHTML = originalText;
+                }, 2000);
+            }).catch(err => {
+                alert("Gagal menyalin teks.");
+            });
+        }
+
+        // LIVE SEARCH
+        function filterCards() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const activeTab = document.querySelector('.tab-content.active');
+            
+            if(!activeTab) return;
+
+            const cards = activeTab.querySelectorAll('.card-searchable');
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                if(text.includes(input)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+  </html>
