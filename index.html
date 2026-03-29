@@ -308,12 +308,14 @@
                 <button class="nav-btn active" onclick="switchTab('systems', this)"><i class="ph-fill ph-info"></i> Sistem Inti Game</button>
                 <button class="nav-btn" onclick="switchTab('economy', this)"><i class="ph-fill ph-coins"></i> Ekonomi & Bank</button>
                 <button class="nav-btn" onclick="switchTab('explore', this)"><i class="ph-fill ph-map-trifold"></i> Eksplorasi & Pet</button>
+                <button class="nav-btn" onclick="switchTab('gear', this)"><i class="ph-fill ph-hammer"></i> Gear & Misi Dewa</button>
                 <button class="nav-btn" onclick="switchTab('afk', this)"><i class="ph-fill ph-robot"></i> Logistik & AFK</button>
                 <button class="nav-btn" onclick="switchTab('market', this)"><i class="ph-fill ph-storefront"></i> Pasar Global</button>
                 <button class="nav-btn" onclick="switchTab('clan', this)"><i class="ph-fill ph-users-three"></i> Dragon Syndicate</button>
                 <button class="nav-btn" onclick="switchTab('arena', this)"><i class="ph-fill ph-swords"></i> Arena & Battle</button>
                 <button class="nav-btn" onclick="switchTab('casino', this)"><i class="ph-fill ph-poker-chip"></i> Kasino (No Tax)</button>
                 <button class="nav-btn" onclick="switchTab('events', this)"><i class="ph-fill ph-gift"></i> Event & Hadiah</button>
+                <button class="nav-btn" onclick="switchTab('profile', this)"><i class="ph-fill ph-user-focus"></i> Profil & Identitas</button>
             </div>
         </aside>
 
@@ -353,7 +355,7 @@
                         <br>• Level 1 (Newbie): Memiliki jatah flat sebesar <b>$64,000</b>.
                         <br>• Jatah Kirim (Level > 1): <code>Level² × 51.900</code>
                         <br>• Jatah Terima (Level > 1): <code>Level² × 77.850</code>
-                        <br><br><b>Contoh:</b> Jika kamu Level 10, kamu bisa mengirim uang hingga <i>$5,190,000</i> dan menerima hingga <i>$7,785,000</i> per hari. Semua limit di-reset pukul 00:00 WIB.</p>
+                        <br><br><b>Contoh:</b> Jika kamu Level 10, kamu bisa mengirim uang hingga <i>$5,190,000</i> dan menerima hingga <i>$7,785,000</i> per hari. Semua limit di-reset pukul 12:00 WIB.</p>
                     </div>
 
                     <div class="cmd-card card-searchable">
@@ -362,7 +364,7 @@
                         <br><br><b>Cara Mendapatkan Luck:</b>
                         <br>• Leveling: Tiap naik level, Luck permanen bertambah.
                         <br>• Sacrifice: Mengorbankan 2 hewan Secret untuk gacha Luck Permanen.
-                        <br>• Cuaca: Berburu saat Badai/Hujan memberikan buff ekstra Luck.
+                        <br>• Event: Berburu saat Event aktif memberikan buff ekstra Luck.
                         <br><br><b>Penalti AFK:</b> Jika kamu malas dan menggunakan mesin <code>/afk</code>, Luck kamu akan dikurangi 30% selama mesin berjalan.</p>
                     </div>
 
@@ -450,18 +452,6 @@
                             <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/daily</code></div>
                         </div>
                     </div>
-
-                    <div class="cmd-card card-searchable">
-                        <div class="cmd-header">
-                            <div class="cmd-name">/rank & /leaderboard</div>
-                            <button class="btn-copy" onclick="copyText('/leaderboard kategori:level', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
-                        </div>
-                        <p class="cmd-desc"><code>/rank</code> untuk melihat posisi personalmu di seluruh kategori dunia. <code>/leaderboard</code> untuk melihat daftar Top 100 penguasa di kategori Kekayaan, Level, Hunt, Fish, Kolektor, atau Klan.</p>
-                        <div class="cmd-usage-box">
-                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/rank<br>/leaderboard [kategori]</code></div>
-                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/leaderboard kategori:level</code></div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- ==============================================
@@ -523,22 +513,10 @@
 
                     <div class="cmd-card card-searchable">
                         <div class="cmd-header">
-                            <div class="cmd-name">/pajang & /favorite</div>
-                            <button class="btn-copy" onclick="copyText('/favorite hewan:naga', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
-                        </div>
-                        <p class="cmd-desc">Gunakan <code>/pajang</code> untuk menjadikan monster sebagai Avatar/Maskot di kartu profilmu. Gunakan <code>/favorite</code> untuk MENGUNCI (⭐) hewan kesayangan agar kebal dari pencucian gudang <code>/sell_all</code>.</p>
-                        <div class="cmd-usage-box">
-                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/pajang [hewan]<br>/favorite [hewan]</code></div>
-                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/favorite hewan:naga</code></div>
-                        </div>
-                    </div>
-
-                    <div class="cmd-card card-searchable">
-                        <div class="cmd-header">
                             <div class="cmd-name">/sacrifice</div>
                             <button class="btn-copy" onclick="copyText('/sacrifice hewan_secret:kraken', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
                         </div>
-                        <p class="cmd-desc">Ritual Tumbal. Bakar 2 ekor monster tier SECRET yang kamu miliki. Ada resiko gagal 50%. Jika sukses, kamu dianugerahi tambahan +0.1% LUCK yang bersifat PERMANEN.</p>
+                        <p class="cmd-desc">Ritual Tumbal. Bakar 2 ekor monster tier SECRET yang kamu miliki. Ada resiko gagal 50%. Jika sukses, kamu dianugerahi tambahan +0.5% LUCK yang bersifat PERMANEN.</p>
                         <div class="cmd-usage-box">
                             <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/sacrifice [hewan_secret]</code></div>
                             <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/sacrifice hewan_secret:kraken</code></div>
@@ -547,7 +525,65 @@
                 </div>
 
                 <!-- ==============================================
-                     TAB 4: LOGISTIK & AFK
+                     TAB 4: GEAR & MISI DEWA (NEW)
+                     ============================================== -->
+                <div id="gear" class="tab-content">
+                    <div class="page-header">
+                        <div class="page-icon"><i class="ph-fill ph-hammer"></i></div>
+                        <div><h2 class="page-title font-heading">Gear & Misi Dewa</h2><p class="page-desc">Tingkatkan alat perburuanmu dan ikuti misi sakral para legenda.</p></div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/item_market & /item_buy</div>
+                            <button class="btn-copy" onclick="copyText('/item_buy nama_item:basic bow metode_bayar:cash', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Kunjungi Blacksmith (<code>/item_market</code>) untuk melihat daftar peralatan. Beli perlengkapan (Gear) menggunakan <code>/item_buy</code> dengan metode pembayaran Cash atau Dragon Gems. Alat ini akan memberikan bonus +Tarikan di setiap Hunt/Fish.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/item_market<br>/item_buy [nama_item] [metode]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/item_buy nama_item:basic bow metode_bayar:cash</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/equip & /item_dex</div>
+                            <button class="btn-copy" onclick="copyText('/equip nama_item:basic bow', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Setelah membeli senjata, kamu <b>WAJIB</b> memasangnya ke tanganmu menggunakan <code>/equip</code> agar efek pasifnya aktif. Gunakan <code>/item_dex</code> untuk melihat detail statistik sebuah senjata.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/equip [nama_item]<br>/item_dex [nama_item]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/equip nama_item:basic bow</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/cek_misi & /mulai_misi</div>
+                            <button class="btn-copy" onclick="copyText('/mulai_misi misi:dragon_slayer', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Ada senjata legendaris yang <b>TIDAK DIJUAL</b> di pasar, seperti <i>Dragon Slayer</i> & <i>Poseidon Rod</i>. Gunakan <code>/cek_misi</code> untuk melihat syarat mendapatkannya. Gunakan <code>/mulai_misi</code> agar sistem mulai merekam progres perburuanmu dari nol.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/cek_misi<br>/mulai_misi [pilihan_misi]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/mulai_misi misi:dragon_slayer</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/cek_progress & /klaim_misi</div>
+                            <button class="btn-copy" onclick="copyText('/klaim_misi misi:dragon_slayer', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Gunakan <code>/cek_progress</code> untuk melihat berapa banyak hewan Secret yang sudah kamu tangkap dan berapa setoran tumbal yang sudah masuk. Jika status sudah 100% SELESAI, segera gunakan <code>/klaim_misi</code> untuk mendapatkan senjata dewamu!</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/cek_progress<br>/klaim_misi [pilihan_misi]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/klaim_misi misi:dragon_slayer</code></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==============================================
+                     TAB 5: LOGISTIK & AFK
                      ============================================== -->
                 <div id="afk" class="tab-content">
                     <div class="page-header">
@@ -605,7 +641,7 @@
                 </div>
 
                 <!-- ==============================================
-                     TAB 5: PASAR GLOBAL
+                     TAB 6: PASAR GLOBAL
                      ============================================== -->
                 <div id="market" class="tab-content">
                     <div class="page-header">
@@ -616,12 +652,12 @@
                     <div class="cmd-card card-searchable">
                         <div class="cmd-header">
                             <div class="cmd-name">/market sell & list</div>
-                            <button class="btn-copy" onclick="copyText('/market sell hewan:naga price:50000', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                            <button class="btn-copy" onclick="copyText('/market sell animal:naga price:50000', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
                         </div>
                         <p class="cmd-desc"><code>/market list</code> untuk melihat semua barang dagangan player di seluruh server. <code>/market sell</code> untuk memajang hewanmu ke dalam list tersebut (Menghasilkan ID unik untuk dibeli orang).</p>
                         <div class="cmd-usage-box">
                             <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/market list<br>/market sell [hewan] [harga]</code></div>
-                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/market sell hewan:naga price:50000</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/market sell animal:naga price:50000</code></div>
                         </div>
                     </div>
 
@@ -640,24 +676,24 @@
                     <div class="cmd-card card-searchable">
                         <div class="cmd-header">
                             <div class="cmd-name">/bm_list & /bm_buy</div>
-                            <button class="btn-copy" onclick="copyText('/bm_buy slot_id:2', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                            <button class="btn-copy" onclick="copyText('/bm_buy item_id:2', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
                         </div>
-                        <p class="cmd-desc">Pasar Gelap (Black Market). Toko ini dijaga NPC dan menjual 3 slot hewan eksklusif dengan harga tetap. Barang akan di-*refresh* otomatis setiap jam 12:00 dan 00:00.</p>
+                        <p class="cmd-desc">Pasar Gelap (Black Market). Toko ini dijaga NPC dan menjual 3 slot hewan eksklusif dengan harga tetap. Barang akan di-*refresh* otomatis setiap jam 12:00 dan 00:00. Hati-hati, jika yang muncul adalah kasta <b>SECRET</b>, stoknya sangat terbatas (Limited 1-3 ekor saja se-dunia)!</p>
                         <div class="cmd-usage-box">
                             <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/bm_list<br>/bm_buy [slot_1/2/3]</code></div>
-                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/bm_buy slot_id:2</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/bm_buy item_id:2</code></div>
                         </div>
                     </div>
 
                     <div class="cmd-card card-searchable">
                         <div class="cmd-header">
-                            <div class="cmd-name">/sell_all</div>
-                            <button class="btn-copy" onclick="copyText('/sell_all', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                            <div class="cmd-name">/sell & /sell_all</div>
+                            <button class="btn-copy" onclick="copyText('/sell item:r amount:all', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
                         </div>
-                        <p class="cmd-desc">Fitur Cuci Gudang. Merubah seluruh peliharaanmu menjadi uang tunai seketika! <br><br><b>PINTAR:</b> Sistem otomatis melindungi (TIDAK AKAN MENJUAL) hewan tier SECRET dan hewan yang sudah kamu amankan lewat perintah <code>/favorite</code>.</p>
+                        <p class="cmd-desc">Fitur Penjualan Instan. <code>/sell</code> digunakan untuk menjual hewan spesifik atau menjual massal per-tier (misal: 'c' untuk Common, 'e' untuk Epic). <code>/sell_all</code> untuk cuci gudang massal. <br><br><b>PINTAR:</b> Sistem otomatis melindungi hewan tier SECRET dan hewan yang di-<code>/favorite</code> ⭐.</p>
                         <div class="cmd-usage-box">
-                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/sell_all</code></div>
-                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/sell_all</code></div>
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/sell [hewan/tier] [jumlah]<br>/sell_all</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/sell item:r amount:all</code></div>
                         </div>
                     </div>
 
@@ -666,7 +702,7 @@
                             <div class="cmd-name">/send_animal</div>
                             <button class="btn-copy" onclick="copyText('/send_animal user:@teman jumlah:2 hewan:anjing', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
                         </div>
-                        <p class="cmd-desc">Mengirim hewan langsung ke inventory temanmu sebagai hadiah tanpa memungut pajak atau biaya apa pun.</p>
+                        <p class="cmd-desc">Mengirim hewan langsung ke inventory temanmu sebagai hadiah tanpa memungut pajak atau biaya apa pun. (Catatan: Kasta Special Cipher dan Collab tidak bisa ditransfer).</p>
                         <div class="cmd-usage-box">
                             <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/send_animal [user] [jumlah] [hewan]</code></div>
                             <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/send_animal user:@teman jumlah:2 hewan:anjing</code></div>
@@ -675,7 +711,7 @@
                 </div>
 
                 <!-- ==============================================
-                     TAB 6: CLAN
+                     TAB 7: CLAN
                      ============================================== -->
                 <div id="clan" class="tab-content">
                     <div class="page-header">
@@ -737,7 +773,7 @@
                 </div>
 
                 <!-- ==============================================
-                     TAB 7: ARENA
+                     TAB 8: ARENA
                      ============================================== -->
                 <div id="arena" class="tab-content">
                     <div class="page-header">
@@ -750,7 +786,7 @@
                             <div class="cmd-name">/battle (PvE & PvP)</div>
                             <button class="btn-copy" onclick="copyText('/battle @user', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
                         </div>
-                        <p class="cmd-desc">Gunakan tanpa target (<code>/battle</code>) untuk melawan monster AI bot. Gunakan dengan target (<code>/battle @user</code>) untuk duel pemain sungguhan. Masing-masing memilih 1 hewan rahasia; yang punya akumulasi stat lebih tinggi menang dan dapat XP.</p>
+                        <p class="cmd-desc">Gunakan tanpa target (<code>/battle</code>) untuk melawan musuh acak Global. Gunakan dengan target (<code>/battle @user</code>) untuk duel langsung dengan teman. <br><br>Sistem Pity Anti-Frustasi: Jika kamu kalah 5x beruntun di mode Global, bot diam-diam akan memberikan musuh NPC yang lebih lemah agar kamu bisa menang dan mengumpulkan XP!</p>
                         <div class="cmd-usage-box">
                             <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/battle [opsional: user]</code></div>
                             <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/battle @user</code></div>
@@ -786,7 +822,7 @@
                             <div class="cmd-name">/misi</div>
                             <button class="btn-copy" onclick="copyText('/misi', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
                         </div>
-                        <p class="cmd-desc">Papan guild quest. Menampilkan 3 misi harian acak (misal: "Menang Battle 3x", "Berhasil Hunt 5x"). Selesaikan syaratnya dan klaim hadiah uang besar!</p>
+                        <p class="cmd-desc">Papan guild quest harian. Menampilkan 3 misi acak (misal: "Menang Battle 3x", "Berhasil Hunt 5x"). Selesaikan syaratnya dan sistem akan otomatis memberikan hadiah uang yang besar ke saldomu!</p>
                         <div class="cmd-usage-box">
                             <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/misi</code></div>
                             <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/misi</code></div>
@@ -795,7 +831,7 @@
                 </div>
 
                 <!-- ==============================================
-                     TAB 8: CASINO
+                     TAB 9: CASINO
                      ============================================== -->
                 <div id="casino" class="tab-content">
                     <div class="page-header">
@@ -808,7 +844,7 @@
                             <div class="cmd-name">/cf (Coinflip)</div>
                             <button class="btn-copy" onclick="copyText('/cf choice:h amount:10000', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
                         </div>
-                        <p class="cmd-desc">Tebak koin jatuh! Pilih (H) untuk Heads / Kepala, atau (T) untuk Tails / Ekor. Jika menang, kamu akan membawa pulang modalmu dan profit murni 1x lipat tanpa dipotong pajak brankas server.</p>
+                        <p class="cmd-desc">Tebak koin jatuh! Pilih (H) untuk Heads / Kepala, atau (T) untuk Tails / Ekor. Jika menang, kamu akan membawa pulang modalmu dan profit murni 1x lipat tanpa dipotong pajak brankas server. Max Bet: $250,000.</p>
                         <div class="cmd-usage-box">
                             <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/cf [h/t] [jumlah/all]</code></div>
                             <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/cf choice:h amount:10000</code></div>
@@ -820,7 +856,7 @@
                             <div class="cmd-name">/slots</div>
                             <button class="btn-copy" onclick="copyText('/slots amount:all', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
                         </div>
-                        <p class="cmd-desc">Putar mesin slot. Jika kamu berhasil mendapatkan tiga emoji buah yang sama (sejajar), kamu akan mendapat JACKPOT! Hadiah adalah 2x lipat total uang taruhanmu (Bersih tanpa potongan).</p>
+                        <p class="cmd-desc">Putar mesin slot. Jika kamu berhasil mendapatkan tiga emoji buah yang sama (sejajar), kamu akan mendapat JACKPOT! Hadiah adalah 2x lipat total uang taruhanmu (Bersih tanpa potongan). Max Bet: $250,000.</p>
                         <div class="cmd-usage-box">
                             <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/slots [jumlah/all]</code></div>
                             <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/slots amount:all</code></div>
@@ -829,7 +865,7 @@
                 </div>
 
                 <!-- ==============================================
-                     TAB 9: EVENTS
+                     TAB 10: EVENTS
                      ============================================== -->
                 <div id="events" class="tab-content">
                     <div class="page-header">
@@ -842,7 +878,7 @@
                             <div class="cmd-name">/cek_cuaca & /cekevent</div>
                             <button class="btn-copy" onclick="copyText('/cek_cuaca', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
                         </div>
-                        <p class="cmd-desc"><code>/cek_cuaca</code> melihat status iklim dunia saat ini, sangat berguna karena cuaca ekstrim meningkatkan gacha luck secara otomatis. <code>/cekevent</code> untuk mengecek apakah ada event *Double Drop* atau *Rate Up* buatan Admin.</p>
+                        <p class="cmd-desc"><code>/cek_cuaca</code> melihat status iklim dunia saat ini, sangat berguna karena cuaca ekstrim meningkatkan gacha luck secara otomatis. <code>/cekevent</code> untuk mengecek apakah ada event *Double Drop* atau *Mega Luck* buatan Admin.</p>
                         <div class="cmd-usage-box">
                             <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/cek_cuaca<br>/cekevent</code></div>
                             <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/cek_cuaca</code></div>
@@ -854,7 +890,7 @@
                             <div class="cmd-name">/collab list & claim</div>
                             <button class="btn-copy" onclick="copyText('/collab claim animal:naga_es password:rahasia', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
                         </div>
-                        <p class="cmd-desc">Dapatkan monster ultra-rare dari Event Silang Server. Cek daftarnya dengan <code>/collab list</code>. Jika kamu tahu password dari server kolaborasi, kamu bisa mengambil hewan unik mereka dengan <code>/collab claim</code>.</p>
+                        <p class="cmd-desc">Dapatkan monster ultra-rare dari Event Silang Server. Cek daftarnya dengan <code>/collab list</code>. Jika kamu tahu password (Kode Rahasia) yang disebar oleh Admin, kamu bisa mengambil hewan unik mereka dengan <code>/collab claim</code>.</p>
                         <div class="cmd-usage-box">
                             <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/collab list<br>/collab claim [hewan] [pass]</code></div>
                             <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/collab claim animal:naga_es password:rahasia</code></div>
@@ -878,10 +914,56 @@
                             <div class="cmd-name">/vote & /claim_vote</div>
                             <button class="btn-copy" onclick="copyText('/claim_vote', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
                         </div>
-                        <p class="cmd-desc">Bantu Dragon Bot merajai server Discord! Gunakan <code>/vote</code> untuk mendapat link dukungan Top.gg. Setelah selesai vote, ketik <code>/claim_vote</code> untuk menyuntikkan ribuan Dragon Cash langsung ke dompetmu (Bisa dilakukan per 12 Jam).</p>
+                        <p class="cmd-desc">Bantu Dragon Bot merajai server Discord! Gunakan <code>/vote</code> untuk mendapat link dukungan Top.gg. Setelah selesai vote di web tersebut, ketik <code>/claim_vote</code> di Discord untuk menyuntikkan ribuan Dragon Cash langsung ke dompetmu (Bisa dilakukan per 12 Jam).</p>
                         <div class="cmd-usage-box">
                             <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/vote<br>/claim_vote</code></div>
                             <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/claim_vote</code></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==============================================
+                     TAB 11: PROFIL & IDENTITAS (NEW)
+                     ============================================== -->
+                <div id="profile" class="tab-content">
+                    <div class="page-header">
+                        <div class="page-icon"><i class="ph-fill ph-user-focus"></i></div>
+                        <div><h2 class="page-title font-heading">Profil & Identitas</h2><p class="page-desc">Tampilkan pencapaian dan identitas Hunter sejatimu.</p></div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/profile & /profile_card</div>
+                            <button class="btn-copy" onclick="copyText('/profile_card', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc"><code>/profile</code> memunculkan ringkasan teks statistik karaktermu (Level, Luck, Klan, dll). Sedangkan <code>/profile_card</code> (atau <code>/pc</code>) akan mencetak Kartu Identitas Visual kualitas HD (Image) yang bisa dipamerkan ke teman-temanmu.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/profile<br>/profile_card</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/profile_card</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/pajang & /favorite</div>
+                            <button class="btn-copy" onclick="copyText('/pajang hewan:naga', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Gunakan <code>/pajang</code> untuk menjadikan monster terkuatmu sebagai Avatar/Maskot yang akan muncul di Profile Card dan Papan Leaderboard. Gunakan <code>/favorite</code> untuk MENGUNCI (⭐) hewan kesayangan agar kebal dari pencucian gudang <code>/sell_all</code>.</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/pajang [hewan]<br>/favorite [hewan]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/pajang hewan:naga</code></div>
+                        </div>
+                    </div>
+
+                    <div class="cmd-card card-searchable">
+                        <div class="cmd-header">
+                            <div class="cmd-name">/mypet (Pet Mastery)</div>
+                            <button class="btn-copy" onclick="copyText('/mypet hewan:naga', this)"><i class="ph-bold ph-copy"></i> Salin Contoh</button>
+                        </div>
+                        <p class="cmd-desc">Mengecek statistik tempur (HP/ATK/SPD) peliharaan aslimu. Semakin sering pet ini dibawa menang di Arena Battle, level Mastery-nya akan naik dan stat tempurnya akan jauh melampaui statistik dasarnya!</p>
+                        <div class="cmd-usage-box">
+                            <div class="usage-section"><h5><i class="ph-fill ph-shield-check"></i> Cara Pakai</h5><code class="usage-code">/mypet [hewan]</code></div>
+                            <div class="usage-section example"><h5><i class="ph-fill ph-lightning"></i> Contoh</h5><code class="usage-code">/mypet hewan:naga</code></div>
                         </div>
                     </div>
                 </div>
@@ -892,9 +974,6 @@
 
     <!-- MAIN JAVASCRIPT -->
     <script>
-        // INIT ICONS
-        lucide.createIcons();
-
         // TAB SWITCH LOGIC
         function switchTab(tabId, element) {
             const tabs = document.querySelectorAll('.tab-content');
@@ -955,4 +1034,4 @@
         }
     </script>
 </body>
-  </html>
+</html>
